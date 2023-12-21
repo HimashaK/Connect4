@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Board {
 
-	//set connect4 board dimensions
+	//Set connect4 board dimensions
 	private final int NUM_COL = 7;
 	private final int NUM_ROW = 6;
 
@@ -22,15 +22,6 @@ public class Board {
             }
             board.add(column);
         }
-	}
-
-	/* Getter methods */
-	public int getNumRows(){
-		return NUM_ROW;
-	}
-
-	public int getNumCol(){
-		return NUM_COL;
 	}
 
 	/*Method to print connect 4 board */
@@ -131,5 +122,83 @@ public class Board {
         }
         return true;
     }
+
+    /* AI player methods and helpers */
+    
+    /* Getter methods */
+	public int getNumRows(){
+		return NUM_ROW;
+	}
+
+	public int getNumCol(){
+		return NUM_COL;
+	}
+
+    /*Method to check if there is a potential winning move for the AI player
+     * returns col num where placing the symbol would lead to a win or -1 if there is no winning move found
+     */
+    public int AIWin(char symbol) {
+        ArrayList<ArrayList<String>> bCopy = this.copyBoard();
+        int aicol = -1;
+    
+        for (int colNum = 1; colNum <= NUM_COL; colNum++) {
+            this.placeToken(colNum, symbol);
+            if (this.containsWin()) {
+                aicol = colNum;
+                break;
+            }
+            this.restoreBoard(bCopy);
+        }
+    
+        restoreBoard(bCopy);
+        return aicol;
+    }
+
+    /*Method to identify if there is a move that can be made to block the oponent from winning 
+     * if AIWin returns col num then opponent could win by playing that col so the AI blocks it
+     * if it returns -1, there is no immediate winning move for the opponent so blocking isnt necessary
+    */
+    public int AIBlock(char symbol) {
+        String self = String.valueOf(symbol);
+        String other = findOppSymbol(self);
+    
+        return AIWin(other.charAt(0));
+    }
+    
+    /*Method to  find the symbol of the opponent */
+    private String findOppSymbol(String selfSymbol) {
+        /*  iterates through each cell of the board, if cell is not empty and does not 
+        contain AI's symbol then returns cell (opponents symbol) */
+        for (ArrayList<String> column : board) {
+            for (String cell : column) {
+                if (!cell.isEmpty() && !cell.equals(selfSymbol)) {
+                    return cell;
+                }
+            }
+        }
+        return ""; // return empty string if no opponent symbol found
+    }
+
+    /*Method to copy the board so that the original board remains unchanged when simulating moves by the AI*/
+    private ArrayList<ArrayList<String>> copyBoard() {
+        ArrayList<ArrayList<String>> newBoard = new ArrayList<>();
+        for (ArrayList<String> column : board) {
+            newBoard.add(new ArrayList<>(column));
+        }
+        return newBoard;
+    }
+
+    /*Method to revert changes made to the board*/
+    private void restoreBoard(ArrayList<ArrayList<String>> boardCopy) {
+        for (int i = 0; i < NUM_COL; i++) {
+            for (int j = 0; j < NUM_ROW; j++) {
+                board.get(i).set(j, boardCopy.get(i).get(j));
+            }
+        }
+    }
+    
+    
+    
+    
 	
 }

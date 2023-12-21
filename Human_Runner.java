@@ -1,4 +1,4 @@
-public class Runner_Human {
+public class Human_Runner {
 
 	public static void main(String[] args) {
 		
