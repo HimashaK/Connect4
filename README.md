@@ -1,4 +1,6 @@
-# Connect4
+# Connect4 using Object Oriented Programming
 This implementation of Connect Four highlights object-oriented principles such as encapsultaion, inheritance, and polymorphism. The HumanPlayer and AIPlayer classes extend the abstract Player class and implement their own versions of the makeMove method. For HumanPlayer, the makeMove function prompts the users for inputs between 1 and 7 and tokens are placed into the game board if the move is valid. For AIPlayer, the makeMove method determines if there are one or more moves that can be made to win and makes one of them. Also, if there are no winning moves available, but the HumanPlayer opponent can make one or more winning moves in their next turn, the AI will block them. The implementations for the extended child classes (HumanPlayer and AIPlayer) showcase the oop principles of inhertiance and polymorphism along with encapsulation since implementation details are hidden from outside access (using the access modifier private within classes and by using a private ArrayList for the implementation of the board in the Board class). 
 
-            ![image](https://github.com/HimashaK/Connect4/assets/90633056/ddd0e8ca-bffb-4ea5-ab06-769e27039a71)
+<p align="center">
+  <img width="460" height="300" src="[https://picsum.photos/460/300](https://github.com/HimashaK/Connect4/assets/90633056/ddd0e8ca-bffb-4ea5-ab06-769e27039a71)https://github.com/HimashaK/Connect4/assets/90633056/ddd0e8ca-bffb-4ea5-ab06-769e27039a71">
+</p>
